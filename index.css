@@ -1,46 +1,87 @@
 body {
-    background-color: #403F4C;
+  background-color: #504F5C;
+  margin: 20px
 }
 
-.row{
-  overflow: hidden;
+#app {
+  display: inline-block;
 }
 
-.cell{
-  width: 30px;
-  height: 30px;
-  border: #565554 solid thin;
+.field {
   float: left;
 }
 
-.cell.empty{
+.row {
+  overflow: hidden;
+}
+
+.cell {
+  width: 30px;
+  height: 30px;
+  border: #000000 solid thin;
+  float: left;
+}
+
+.cell.placed {
+  border: #000000 dashed thin;
+}
+
+.cell.empty {
   background-color: #F7F9F9;
 }
 
-.cell.I{
+.cell.I {
   background-color: #30C5FF;
 }
 
-.cell.O{
+.cell.O {
   background-color: #F3E37C;
 }
 
-.cell.T{
+.cell.T {
   background-color: #53599A;
 }
 
-.cell.J{
+.cell.J {
   background-color: #3066BE;
 }
 
-.cell.L{
+.cell.L {
   background-color: #EE8434;
 }
 
-.cell.S{
+.cell.S {
   background-color: #29BF12;
 }
 
-.cell.Z{
+.cell.Z {
   background-color: #F03A47;
+}
+
+.lines {
+  font-size: 15px;
+  color: #F7F9F9;
+}
+
+.score {
+  font-size: 15px;
+  color: #F7F9F9;
+}
+
+.next-tetrimino {
+  float: right;
+}
+
+.tetrimino {
+  margin: 10px;
+}
+
+.cell.small-cell {
+  width: 10px;
+  height: 10px;
+  border: #504F5C solid thin;
+}
+
+.small-cell.empty {
+  background-color: #c7c9c9;
 }

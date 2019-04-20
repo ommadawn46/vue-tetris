@@ -2,8 +2,20 @@
 <link rel="stylesheet" type="text/css" href="index.css">
 
 <div id="app">
-    <div v-for="row in field" class='row'>
-        <div v-for="cell in row" class='cell' v-bind:class='cell.class'></div>
+    <div class="field">
+        <div v-for="row in field.slice(2)" class='row'>
+            <div v-for="cell in row" class='cell' v-bind:class='[cell.class, {placed: cell.isPlaced}]'></div>
+        </div>
+        <div class='score'>Lines: {{lines}}</div>
+        <div class='score'>Score: {{score}}</div>
+    </div>
+    <div class="next-tetrimino">
+        <div v-for="tetrimino in nextTetriminos.slice(0, 11)" class='tetrimino'>
+            <div v-for="y in 4" class='row'>
+                <div v-for="x in 4" class='cell small-cell'
+                    v-bind:class='tetrimino.isBlock(x, y) ? tetrimino.class : "empty"'></div>
+            </div>
+        </div>
     </div>
 </div>
 

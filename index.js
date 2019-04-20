@@ -1,29 +1,34 @@
 const width = 10;
-const height = 20;
+const height = 20 + 2;
 
 const app = new Vue({
     el: '#app',
     data: {
-        field: []
+        field: [],
+        score: 0,
+        lines: 0,
     },
     methods: {
-        init: function() {
+        init: function () {
             this.field = [...Array(height)].map(() => [...Array(width)].map(() => {
-                return { class: 'empty', placed: false }
+                return { class: 'empty', isPlaced: false }
             }))
+            this.score = 0
+            this.lines = 0
             this.endGame = false
             this.nextTetriminos = []
             this.popTetrimino()
             this.render()
         },
-        popTetrimino: function() {
-            while (this.nextTetriminos.length < 10) {
+        popTetrimino: function () {
+            while (this.nextTetriminos.length < 12) {
                 this.nextTetriminos = this.nextTetriminos.concat(
-                    TETRIMINOS.concat(TETRIMINOS).sort(() => Math.random() - 0.5)
+                    TETRIMINOS.concat(TETRIMINOS).sort(() => Math.random() - 0.5).map(
+                        tetrimino => new tetrimino(width / 2, 0)
+                    )
                 )
             }
-            const ChoisedTetrimino = this.nextTetriminos.pop()
-            this.playerTetrimino = new ChoisedTetrimino(width / 2, 0)
+            this.playerTetrimino = this.nextTetriminos.shift()
             if (this.checkCollision()) {
                 this.endGame = true
             }
@@ -36,20 +41,24 @@ const app = new Vue({
             if (this.checkCollision()) {
                 this.playerTetrimino.y--
                 this.playerTetrimino.getPoints().forEach(p => {
-                    this.field[p.y][p.x].placed = true
+                    this.field[p.y][p.x].isPlaced = true
                 })
                 doPopTetrimino = true
             }
+            let erasedLines = 0
             const new_field = []
             for (let i = 0; i < this.field.length; i++) {
-                if (this.field[i].every(cell => cell.placed)) {
+                if (this.field[i].every(cell => cell.isPlaced)) {
+                    erasedLines++
                     continue
                 }
                 new_field.push(this.field[i])
             }
+            this.lines += erasedLines
+            this.score += [0, 40, 100, 300, 1200][erasedLines]
             while (new_field.length < height) {
                 new_field.unshift([...Array(width)].map(() => {
-                    return { class: 'empty', placed: false }
+                    return { class: 'empty', isPlaced: false }
                 }))
             }
             this.field = new_field
@@ -85,7 +94,7 @@ const app = new Vue({
                     return true
                 }
                 const cell = row[points[i].x]
-                if (!cell || cell.placed) {
+                if (!cell || cell.isPlaced) {
                     return true
                 }
             }
@@ -93,7 +102,7 @@ const app = new Vue({
         },
         render: function () {
             const new_field = this.field.map(row => row.map(cell => {
-                if (!cell.placed) {
+                if (!cell.isPlaced) {
                     cell.class = 'empty'
                 }
                 return cell

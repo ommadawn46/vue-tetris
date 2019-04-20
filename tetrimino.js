@@ -16,6 +16,14 @@ class Tetrimino {
             return { x: p.x + this.x, y: p.y + this.y }
         })
     }
+    isBlock(x, y) {
+        for (let i = 0; i < this.points.length; i++) {
+            if (this.points[i].x + 2 === x && this.points[i].y + 2 === y) {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 class TetriminoI extends Tetrimino {
