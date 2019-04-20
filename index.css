@@ -1,0 +1,46 @@
+body {
+    background-color: #403F4C;
+}
+
+.row{
+  overflow: hidden;
+}
+
+.cell{
+  width: 30px;
+  height: 30px;
+  border: #565554 solid thin;
+  float: left;
+}
+
+.cell.empty{
+  background-color: #F7F9F9;
+}
+
+.cell.I{
+  background-color: #30C5FF;
+}
+
+.cell.O{
+  background-color: #F3E37C;
+}
+
+.cell.T{
+  background-color: #53599A;
+}
+
+.cell.J{
+  background-color: #3066BE;
+}
+
+.cell.L{
+  background-color: #EE8434;
+}
+
+.cell.S{
+  background-color: #29BF12;
+}
+
+.cell.Z{
+  background-color: #F03A47;
+}

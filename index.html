@@ -1,0 +1,11 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+
+<div id="app">
+    <div v-for="row in field" class='row'>
+        <div v-for="cell in row" class='cell' v-bind:class='cell.class'></div>
+    </div>
+</div>
+
+<script src="tetrimino.js"></script>
+<script src="index.js"></script>
