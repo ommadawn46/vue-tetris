@@ -1,5 +1,6 @@
-const width = 10;
-const height = 20 + 2;
+const width = 10
+const height = 20 + 2
+const levelInterval = [1440, 1260, 1140, 960, 840, 660, 540, 480, 420, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180, 160, 140, 120, 110, 100, 90, 85, 80, 75, 70, 65, 60]
 
 const app = new Vue({
     el: '#app',
@@ -7,20 +8,29 @@ const app = new Vue({
         field: [],
         score: 0,
         lines: 0,
+        nextTetriminos: [],
     },
     methods: {
         init: function () {
+            // ゲームを初期化
             this.field = [...Array(height)].map(() => [...Array(width)].map(() => {
                 return { class: 'empty', isPlaced: false }
             }))
             this.score = 0
             this.lines = 0
-            this.endGame = false
             this.nextTetriminos = []
+            this.endGame = false
             this.popTetrimino()
-            this.render()
+            this.moveDown()
+        },
+        getLevel: function () {
+            // 消したライン数から現在のレベルを計算
+            const level = Math.floor(this.lines / 10)
+            if (level >= 30) return 30
+            return level
         },
         popTetrimino: function () {
+            // 新しいテトリミノをポップ
             while (this.nextTetriminos.length < 12) {
                 this.nextTetriminos = this.nextTetriminos.concat(
                     TETRIMINOS.concat(TETRIMINOS).sort(() => Math.random() - 0.5).map(
@@ -34,7 +44,9 @@ const app = new Vue({
             }
         },
         moveDown: function () {
+            // 操作中のテトリミノを下方向に移動
             if (this.endGame) return
+            if (this.timer) clearTimeout(this.timer)
 
             let doPopTetrimino = false
             this.playerTetrimino.y++
@@ -50,12 +62,12 @@ const app = new Vue({
             for (let i = 0; i < this.field.length; i++) {
                 if (this.field[i].every(cell => cell.isPlaced)) {
                     erasedLines++
-                    continue
+                } else {
+                    new_field.push(this.field[i])
                 }
-                new_field.push(this.field[i])
             }
             this.lines += erasedLines
-            this.score += [0, 40, 100, 300, 1200][erasedLines]
+            this.score += [0, 40, 100, 300, 1200][erasedLines] * (this.getLevel() + 1)
             while (new_field.length < height) {
                 new_field.unshift([...Array(width)].map(() => {
                     return { class: 'empty', isPlaced: false }
@@ -66,8 +78,13 @@ const app = new Vue({
                 this.popTetrimino()
             }
             this.render()
+            this.timer = setTimeout(
+                this.moveDown,
+                levelInterval[this.getLevel()],
+            )
         },
         moveHorizon: function (toRight) {
+            // 操作中のテトリミノを左右に移動
             if (this.endGame) return
 
             x = toRight ? 1 : -1
@@ -78,6 +95,7 @@ const app = new Vue({
             this.render()
         },
         rotate: function () {
+            // 操作中のテトリミノを回転
             if (this.endGame) return
 
             this.playerTetrimino.rotate(1)
@@ -87,6 +105,7 @@ const app = new Vue({
             this.render()
         },
         checkCollision: function () {
+            // 操作中のテトリミノが衝突していないかチェック
             const points = this.playerTetrimino.getPoints()
             for (let i = 0; i < points.length; i++) {
                 const row = this.field[points[i].y]
@@ -101,6 +120,7 @@ const app = new Vue({
             return false
         },
         render: function () {
+            // 描画
             const new_field = this.field.map(row => row.map(cell => {
                 if (!cell.isPlaced) {
                     cell.class = 'empty'
@@ -113,17 +133,20 @@ const app = new Vue({
             this.field = new_field
         },
     }
-});
+})
 
-const keyMap = {
-    27: app.init, // ESC
-    38: app.rotate, // up
-    37: () => app.moveHorizon(false), // left
-    39: () => app.moveHorizon(true), // right
-    40: app.moveDown, // down
+document.body.onkeydown = e => {
+    if ([27].includes(e.keyCode)) { // ESC
+        app.init()
+    } else if ([38, 87].includes(e.keyCode)) { // UP, W
+        app.rotate()
+    } else if ([37, 65].includes(e.keyCode)) { // LEFT, A
+        app.moveHorizon(false)
+    } else if ([39, 68].includes(e.keyCode)) { // RIGHT, D
+        app.moveHorizon(true)
+    } else if ([40, 83].includes(e.keyCode)) { // DOWN, S
+        app.moveDown()
+    }
 }
 
-document.body.onkeydown = e => keyMap[e.keyCode]()
-
 app.init()
-setInterval(() => app.moveDown(), 500);

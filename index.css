@@ -1,6 +1,11 @@
+:root {
+  --main-bg-color: #011627;
+  --cell-bg-color: #F7F9F9;
+}
+
 body {
-  background-color: #504F5C;
-  margin: 20px
+  margin: 20px;
+  background-color: var(--main-bg-color);
 }
 
 #app {
@@ -18,16 +23,16 @@ body {
 .cell {
   width: 30px;
   height: 30px;
-  border: #000000 solid thin;
+  border: var(--main-bg-color) solid thin;
   float: left;
 }
 
 .cell.placed {
-  border: #000000 dashed thin;
+  border: var(--main-bg-color) dashed thin;
 }
 
 .cell.empty {
-  background-color: #F7F9F9;
+  background-color: var(--cell-bg-color);
 }
 
 .cell.I {
@@ -58,17 +63,13 @@ body {
   background-color: #F03A47;
 }
 
-.lines {
-  font-size: 15px;
-  color: #F7F9F9;
-}
-
 .score {
-  font-size: 15px;
-  color: #F7F9F9;
+  font-size: 25px;
+  color: var(--cell-bg-color);
+  font-family: 'VT323', monospace;
 }
 
-.next-tetrimino {
+.next-tetriminos {
   float: right;
 }
 
@@ -79,7 +80,7 @@ body {
 .cell.small-cell {
   width: 10px;
   height: 10px;
-  border: #504F5C solid thin;
+  border: var(--main-bg-color) solid thin;
 }
 
 .small-cell.empty {
