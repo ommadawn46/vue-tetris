@@ -13,8 +13,8 @@
 <body>
     <div id="app">
         <div class="field">
-            <div v-for="row in field.slice(2)" class='row'>
-                <div v-for="cell in row" class='cell' v-bind:class='[cell.class, {placed: cell.isPlaced}]'></div>
+            <div v-for="line in field.slice(2)" class='line'>
+                <div v-for="cell in line" class='cell' v-bind:class='[cell.class, {placed: cell.isPlaced}]'></div>
             </div>
             <div class='score'>Level: {{getLevel()}}</div>
             <div class='score'>Lines: {{lines}}</div>
@@ -22,7 +22,7 @@
         </div>
         <div class="next-tetriminos">
             <div v-for="tetrimino in nextTetriminos.slice(0, 11)" class='tetrimino'>
-                <div v-for="y in 4" class='row'>
+                <div v-for="y in 4" class='line'>
                     <div v-for="x in 4" class='cell small-cell'
                         v-bind:class='tetrimino.isBlock(x, y) ? tetrimino.class : "empty"'></div>
                 </div>
