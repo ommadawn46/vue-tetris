@@ -1,12 +1,19 @@
-const path = require('path');
+const { VueLoaderPlugin } = require("vue-loader");
 
 module.exports = {
     mode: 'production',
-    entry: './src/js/app.js',
+    entry: './src/app.js',
     output: {
-        filename: 'bundle.js',
-        path: path.join(__dirname, 'public/js')
+        filename: './bundle.js',
     },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        },
+    },
+    plugins: [
+        new VueLoaderPlugin()
+    ],
     module: {
         rules: [
             {
@@ -21,6 +28,10 @@ module.exports = {
                         "@babel/preset-env"
                     ]
                 }
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader',
             }
         ],
     },

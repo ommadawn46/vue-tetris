@@ -1,88 +1,9 @@
 :root {
   --main-bg-color: #011627;
-  --cell-bg-color: #F7F9F9;
+  --cell-bg-color: #f7f9f9;
 }
 
 body {
   margin: 20px;
   background-color: var(--main-bg-color);
-}
-
-#app {
-  display: inline-block;
-}
-
-.field {
-  float: left;
-}
-
-.line {
-  overflow: hidden;
-}
-
-.cell {
-  width: 30px;
-  height: 30px;
-  border: var(--main-bg-color) solid thin;
-  float: left;
-}
-
-.cell.placed {
-  border: var(--main-bg-color) dashed thin;
-}
-
-.cell.empty {
-  background-color: var(--cell-bg-color);
-}
-
-.cell.I {
-  background-color: #30C5FF;
-}
-
-.cell.O {
-  background-color: #F3E37C;
-}
-
-.cell.T {
-  background-color: #53599A;
-}
-
-.cell.J {
-  background-color: #3066BE;
-}
-
-.cell.L {
-  background-color: #EE8434;
-}
-
-.cell.S {
-  background-color: #29BF12;
-}
-
-.cell.Z {
-  background-color: #F03A47;
-}
-
-.score {
-  font-size: 25px;
-  color: var(--cell-bg-color);
-  font-family: 'VT323', monospace;
-}
-
-.next-tetriminos {
-  float: right;
-}
-
-.tetrimino {
-  margin: 10px;
-}
-
-.cell.small-cell {
-  width: 10px;
-  height: 10px;
-  border: var(--main-bg-color) solid thin;
-}
-
-.small-cell.empty {
-  background-color: #c7c9c9;
 }

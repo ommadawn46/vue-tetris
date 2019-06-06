@@ -4,30 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>vue-tetris</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 </head>
 
 <body>
-    <div id="app">
-        <div class="field">
-            <div v-for="line in field.slice(2)" class='line'>
-                <div v-for="cell in line" class='cell' v-bind:class='[cell.class, {placed: cell.isPlaced}]'></div>
-            </div>
-            <div class='score'>Level: {{getLevel()}}</div>
-            <div class='score'>Lines: {{lines}}</div>
-            <div class='score'>Score: {{score}}</div>
-        </div>
-        <div class="next-tetriminos">
-            <div v-for="tetrimino in nextTetriminos.slice(0, 11)" class='tetrimino'>
-                <div v-for="y in 4" class='line'>
-                    <div v-for="x in 4" class='cell small-cell'
-                        v-bind:class='tetrimino.isBlock(x, y) ? tetrimino.class : "empty"'></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="public/js/bundle.js"></script>
+    <main id="app">
+        <tetris ref="tetris"></tetris>
+    </main>
+    <script src="dist/bundle.js"></script>
 </body>
 
 </html>
