@@ -1,3 +1,6 @@
+import '../css/index.css'
+import Tetriminos from '../modules/tetrimino'
+
 const width = 10
 const height = 20 + 2
 const levelInterval = [1440, 1260, 1140, 960, 840, 660, 540, 480, 420, 360, 340, 320, 300, 280, 260, 240, 220, 200, 180, 160, 140, 120, 110, 100, 90, 85, 80, 75, 70, 65, 60]
@@ -35,7 +38,7 @@ const app = new Vue({
             // 新しいテトリミノをポップ
             while (this.nextTetriminos.length < 12) {
                 this.nextTetriminos = this.nextTetriminos.concat(
-                    TETRIMINOS.concat(TETRIMINOS).sort(() => Math.random() - 0.5).map(
+                    Tetriminos.concat(Tetriminos).sort(() => Math.random() - 0.5).map(
                         tetrimino => new tetrimino(width / 2, 0)
                     )
                 )

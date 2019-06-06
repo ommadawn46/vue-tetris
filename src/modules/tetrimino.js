@@ -96,4 +96,4 @@ class TetriminoZ extends Tetrimino {
     }
 }
 
-const TETRIMINOS = [TetriminoI, TetriminoO, TetriminoT, TetriminoJ, TetriminoL, TetriminoS, TetriminoZ]
+export default [TetriminoI, TetriminoO, TetriminoT, TetriminoJ, TetriminoL, TetriminoS, TetriminoZ]
