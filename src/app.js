@@ -6,6 +6,19 @@ const app = new Vue({
     el: "#app",
     components: {
         'tetris': tetris,
+    },
+    methods: {
+        onClick: function () {
+            const body_classes = document.body.classList
+            const tetris_classes = document.getElementById('tetris').classList
+            if (body_classes.contains('focused')) {
+                body_classes.remove('focused')
+                tetris_classes.remove('focused')
+            } else {
+                body_classes.add('focused')
+                tetris_classes.add('focused')
+            }
+        },
     }
 });
 

@@ -1,5 +1,10 @@
 <template>
   <div class="tetris">
+    <div class="score">
+      <div>Level: {{getLevel()}}</div>
+      <div>Lines: {{lines}}</div>
+      <div>Score: {{score}}</div>
+    </div>
     <div class="field">
       <div v-for="(line, index) in field.slice(2)" class="line" :key="index">
         <div
@@ -9,9 +14,6 @@
           :key="index"
         ></div>
       </div>
-      <div class="score">Level: {{getLevel()}}</div>
-      <div class="score">Lines: {{lines}}</div>
-      <div class="score">Score: {{score}}</div>
     </div>
     <div class="next-tetriminos">
       <div v-for="(tetrimino, index) in nextTetriminos.slice(0, 11)" class="tetrimino" :key="index">
@@ -206,6 +208,7 @@ export default {
 <style scoped>
 .tetris {
   display: inline-block;
+  background-color: var(--main-bg-color);
 }
 
 .field {
@@ -260,8 +263,11 @@ export default {
 }
 
 .score {
+  float: left;
+  text-align: left;
   font-size: 25px;
   color: var(--cell-bg-color);
+  width: 250px;
   font-family: "VT323", monospace;
 }
 
